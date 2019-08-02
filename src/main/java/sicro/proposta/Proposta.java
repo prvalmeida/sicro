@@ -15,7 +15,8 @@ public class Proposta {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Proposta(float valorEmprestimo, String convenio, int matriculaConvenio) {
+	public Proposta(Cliente cliente, float valorEmprestimo, String convenio, int matriculaConvenio) {
+		this.cliente = cliente;
 		this.valorEmprestimo = valorEmprestimo;
 		this.convenio = convenio;
 		this.matriculaConvenio = matriculaConvenio;

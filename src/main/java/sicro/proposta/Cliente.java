@@ -1,6 +1,8 @@
 package sicro.proposta;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Cliente {
 	private int id;
@@ -15,6 +17,7 @@ public class Cliente {
 	private String rua;
 	private int numero;
 	private String complemento;
+	private List<Proposta> propostas;
 	
 	public Cliente(	 int id,
 	 String nome,
@@ -40,8 +43,33 @@ public class Cliente {
 		this.rua=rua;
 		this.numero=numero;
 		this.complemento=complemento;
+		
+		this.propostas = new ArrayList<Proposta>();
 	}
 	
+	public Cliente(String cpf) {
+		this.cpf = cpf;
+		this.propostas = new ArrayList<Proposta>();
+	}
+	
+	public void addProposta(Proposta p) throws Exception {
+		if (propostas.size() == 5) {
+			throw new Exception("Cliente atingiu máximo número de propostas");
+		}
+		
+		if (p != null) {
+			this.propostas.add(p);
+		}
+	}
+	
+	public List<Proposta> getPropostas() {
+		return propostas;
+	}
+
+	public void setPropostas(List<Proposta> propostas) {
+		this.propostas = propostas;
+	}
+
 	public int getId() {
 		return id;
 	}
