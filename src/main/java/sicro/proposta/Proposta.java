@@ -31,7 +31,10 @@ public class Proposta {
 	public float getValorEmprestimo() {
 		return valorEmprestimo;
 	}
-	public void setValorEmprestimo(float valorEmprestimo) {
+	public void setValorEmprestimo(float valorEmprestimo) throws Exception {
+		if (checkValorEmprestimo (valorEmprestimo)) {
+			throw new Exception("Valor de empréstimo maior que o limite");
+		}
 		this.valorEmprestimo = valorEmprestimo;
 	}
 	public String getStatus() {
@@ -65,5 +68,13 @@ public class Proposta {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	private boolean checkValorEmprestimo (float valor) {
+		if (valor > 60000 || valor < 1000) {
+			return false;
+		}
+		
+		return true;
 	}
 }

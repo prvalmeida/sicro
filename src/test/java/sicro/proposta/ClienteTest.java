@@ -6,11 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
  
 class ClienteTest {
 	
-	private final Cliente cliente = new Cliente("00899999955");
+	private Cliente cliente;
+	
+	@Before
+	void createClient() {
+		cliente = new Cliente ("00866598755");
+	}
  
     @Test
     void create() {
@@ -23,17 +29,16 @@ class ClienteTest {
     //Aqui testamos se a adição de uma proposta à lista de propostas de um cliente funciona
     @Test
     void addPropose () {
-    	Cliente c = new Cliente("00899999955");
-    	Proposta p = new Proposta(c,60000,"inss",1000);
+    	Proposta p = new Proposta(cliente,60000,"inss",1000);
     	
     	try {
-			c.addProposta(p);
+    		cliente.addProposta(p);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
-    	List<Proposta> propostas = c.getPropostas();
+    	List<Proposta> propostas = cliente.getPropostas();
     	
     	assertTrue(propostas.contains(p));
     }
@@ -42,21 +47,31 @@ class ClienteTest {
     //A ideia é a classe Cliente lançar uma exceção quando isso ocorre
     @Test
     void moreThanFiveProposes() {
-    	Cliente c = new Cliente("00899999966");
     	Proposta p = new Proposta(cliente,60000,"inss",1000);
     	try {
-	    	c.addProposta(p);
-	    	c.addProposta(p);
-	    	c.addProposta(p);
-	    	c.addProposta(p);
-	    	c.addProposta(p);
+    		cliente.addProposta(p);
+    		cliente.addProposta(p);
+    		cliente.addProposta(p);
+    		cliente.addProposta(p);
+    		cliente.addProposta(p);
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     		   	
         Exception exception = assertThrows(Exception.class, () ->
-        c.addProposta(p));
+        cliente.addProposta(p));
+        
         assertEquals("Cliente atingiu máximo número de propostas", exception.getMessage());
+    }
+    
+    @Test
+    void valueTooBig() {
+    	Proposta p = new Proposta();
+    	
+        Exception exception = assertThrows(Exception.class, () ->
+        p.setValorEmprestimo(70000));
+        
+        assertEquals("Valor de empréstimo maior que o limite", exception.getMessage());
     }
 }
