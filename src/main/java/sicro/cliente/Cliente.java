@@ -1,5 +1,6 @@
-package sicro.proposta;
+package sicro.cliente;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ public class Cliente {
 	private int id;
 	private String nome;
 	private char sexo;
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private String cpf;
 	private String nomeMae;
 	private String email;
@@ -22,7 +23,7 @@ public class Cliente {
 	public Cliente(	 int id,
 	 String nome,
 	 char sexo,
-	 Date dataNascimento,
+	 LocalDate dataNascimento,
 	 String cpf,
 	 String nomeMae,
 	 String email,
@@ -88,11 +89,11 @@ public class Cliente {
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setDataNascimento(LocalDate birthDate) {
+		this.dataNascimento = birthDate;
 	}
 	public String getCpf() {
 		return cpf;

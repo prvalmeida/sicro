@@ -1,19 +1,24 @@
-package sicro.proposta;
+package sicro.cliente;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import sicro.cliente.Cliente;
+import sicro.cliente.Proposta;
  
 class ClienteTest {
 	
 	private Cliente cliente;
 	
-	@Before
+	@BeforeEach
 	void createClient() {
 		cliente = new Cliente ("00866598755");
 	}
@@ -65,6 +70,7 @@ class ClienteTest {
         assertEquals("Cliente atingiu máximo número de propostas", exception.getMessage());
     }
     
+    //Cenario em que tentamos criar uma proposta com valor maior que o permitido
     @Test
     void valueTooBig() {
     	Proposta p = new Proposta();
@@ -73,5 +79,19 @@ class ClienteTest {
         p.setValorEmprestimo(70000));
         
         assertEquals("Valor de empréstimo maior que o limite", exception.getMessage());
+    }
+    
+    @Test
+    void clientTooOld() {
+    	//Get current date
+    	LocalDate currentDate = LocalDate.now();
+    	
+    	//Force an age of 76 years old
+    	LocalDate birthDate = LocalDate.of(currentDate.getYear()-76, currentDate.getMonthValue(), currentDate.getDayOfMonth());
+    	
+        Exception exception = assertThrows(Exception.class, () ->
+        cliente.setDataNascimento(birthDate));
+        
+        assertEquals("Idade do cliente maior que o limite", exception.getMessage());
     }
 }

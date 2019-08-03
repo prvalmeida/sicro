@@ -1,4 +1,4 @@
-package sicro.proposta;
+package sicro.cliente;
 
 import java.util.Date;
 
