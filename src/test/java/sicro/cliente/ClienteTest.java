@@ -23,6 +23,9 @@ class ClienteTest {
 		cliente = new Cliente ("00866598755");
 	}
  
+	/**
+	 * Teste de criação da proposta
+	 */
     @Test
     void create() {
    	
@@ -31,7 +34,9 @@ class ClienteTest {
     	assertEquals(2, p.getMatriculaConvenio()); 
     }
     
-    //Aqui testamos se a adição de uma proposta à lista de propostas de um cliente funciona
+    /**
+     * Aqui testamos se a adição de uma proposta à lista de propostas de um cliente funciona
+     */
     @Test
     void addPropose () {
     	Proposta p = new Proposta(cliente,60000,"inss",1000);
@@ -48,8 +53,10 @@ class ClienteTest {
     	assertTrue(propostas.contains(p));
     }
     
-    //Cenario em que tentamos associar uma proposta a um cliente que já possui 5 propostas no seu CPF
-    //A ideia é a classe Cliente lançar uma exceção quando isso ocorre
+    /**
+     * Cenario em que tentamos associar uma proposta a um cliente que já possui 5 propostas no seu CPF
+     * A ideia é a classe Cliente lançar uma exceção quando isso ocorre
+     */
     @Test
     void moreThanFiveProposes() {
     	Proposta p = new Proposta(cliente,60000,"inss",1000);
@@ -60,7 +67,6 @@ class ClienteTest {
     		cliente.addProposta(p);
     		cliente.addProposta(p);
     	} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     		   	
@@ -70,7 +76,9 @@ class ClienteTest {
         assertEquals("Cliente atingiu máximo número de propostas", exception.getMessage());
     }
     
-    //Cenario em que tentamos criar uma proposta com valor maior que o permitido
+    /**
+     * Cenario em que tentamos criar uma proposta com valor maior que o permitido
+     */
     @Test
     void valueTooBig() {
     	Proposta p = new Proposta();
@@ -81,13 +89,17 @@ class ClienteTest {
         assertEquals("Valor de empréstimo maior que o limite", exception.getMessage());
     }
     
+    /**
+     * Cliente nao pode ser mais velho que 75 anos e mais novo que 18 
+     */
     @Test
     void clientTooOld() {
     	//Get current date
     	LocalDate currentDate = LocalDate.now();
+    	int age = 76;
     	
     	//Force an age of 76 years old
-    	LocalDate birthDate = LocalDate.of(currentDate.getYear()-76, currentDate.getMonthValue(), currentDate.getDayOfMonth());
+    	LocalDate birthDate = LocalDate.of(currentDate.getYear()-age, currentDate.getMonthValue(), currentDate.getDayOfMonth());
     	
         Exception exception = assertThrows(Exception.class, () ->
         cliente.setDataNascimento(birthDate));
